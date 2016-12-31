@@ -17,9 +17,10 @@ import android.util.Log;
 
 public class QuestionCreate extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
     // Database Name
     private static final String DATABASE_NAME = "simpleMaths";
+
+    // --------------------- Table for Questions ---------------------------------------
     // tasks table name
     private static final String TABLE_QUEST = "aListOfQuestions";
     // tasks Table Columns names
@@ -30,6 +31,8 @@ public class QuestionCreate extends SQLiteOpenHelper {
     private static final String KEY_ANSB = "ansb"; // Answer b
     private static final String KEY_ANSC = "ansc"; // Answer c
     private static final String KEY_ANSD = "ansd"; // Answer d
+
+
     // define database
     private SQLiteDatabase dbase;
 
@@ -40,7 +43,10 @@ public class QuestionCreate extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE " + TABLE_QUEST + " ( "
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUEST);
+        // create question table
+        String CREATE_QUIZ_TABLE = "CREATE TABLE " + TABLE_QUEST + " ( "
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + KEY_QUESTION + " TEXT , "
                 + KEY_ANSWER + " TEXT , "
@@ -48,7 +54,7 @@ public class QuestionCreate extends SQLiteOpenHelper {
                 + KEY_ANSB + " TEXT , "
                 + KEY_ANSC + " TEXT , "
                 + KEY_ANSD + " TEXT )";
-        db.execSQL(CREATE_TABLE);
+        db.execSQL(CREATE_QUIZ_TABLE);
         addQuestions(db);
         // db.close();
     }
@@ -88,6 +94,7 @@ public class QuestionCreate extends SQLiteOpenHelper {
         // Create tables again
         onCreate(db);
     }
+
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldV, int newV) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUEST);

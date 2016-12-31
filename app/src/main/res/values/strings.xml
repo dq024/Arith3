@@ -9,4 +9,17 @@
     <string name="alertDialog">Your Score</string>
     <string name="answer_question">Solve the simple question</string>
     <string name="title_activity_questions__list_">Questions_List</string>
+
+
+    <string name="userName">Name</string>
+    <string name="userScore">Score</string>
+    <string name="backToMenu">Return to Menu</string>
+    <string name="submitScore">Save Your Score</string>
+
+
+    <string name="submitName">Register Your Name</string>
+    <string name="submitMessage">Leave us your Name, so you can save your score later!</string>
+    <string name="noName">Do not Register</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_test">Test</string>
 </resources>

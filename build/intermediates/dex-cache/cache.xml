@@ -7,7 +7,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="680a5d5240f78a63c166f14eba21a5175ac01c4a">
+        sha1="730275d5ce51970d2298f236d815b60f7faa8dba">
         <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_85f6d5d850ea218cf64930d95ce5d1cd4e1bc2b8\classes.dex" />
     </item>
     <item
@@ -70,7 +70,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="9f7d7679dddc05997a4737400d191896da3ad3d0">
+        sha1="4b5ee464de34fb9982a70a987c5059b94af04799">
         <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_ba8a11e73da5f1b0d70be36c0df45e958bb870fe\classes.dex" />
     </item>
     <item
