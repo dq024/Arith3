@@ -123,12 +123,12 @@ public class SingleQuizFragment extends Fragment {
     public void resetQuiz() {
         correctAnswers = 0;
         totalGuesses = 0;
-        databaseVersion++;
+        //databaseVersion++;
         //totalCheat = 0;
         //totalSkipped = 0;
         qid = 0;
-        db = new QuestionCreate(getActivity(), databaseVersion);  // my question bank class
-
+        db = new QuestionCreate(getActivity());  // my question bank class
+        db.resetQuestions();
         quesList = db.getAllQuestions();  // this will fetch all questions
         Log.d(TAG, quesList.get(0).getANSWER());
         /* add random questions into questionsList until we get NUMBER_OF_QUESTIONS (10)

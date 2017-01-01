@@ -7,7 +7,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="730275d5ce51970d2298f236d815b60f7faa8dba">
+        sha1="187e03cd9e081533d1364f53a55b51a7c9c82d27">
         <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_85f6d5d850ea218cf64930d95ce5d1cd4e1bc2b8\classes.dex" />
     </item>
     <item
@@ -21,21 +21,66 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
-        <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.0.1_8915adb146ba09d139a9b34a3de7b7bd05575217\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
         sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
         <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.0.1_bb4006ae4f974f9647ac59194609b06709be8b60\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
+        <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_186dd1347dd7cfe22ed188a4f73b9d48b986f2ea\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="97ae50f6e447f66874879fa7605a1730ce67686c">
+        <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_ba8a11e73da5f1b0d70be36c0df45e958bb870fe\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
+        <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-25.0.1_6fd640048b6c474f53051d3f07f340f1647a11f9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
+        <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.0.1_16b5bea889e9dc53812f0953b67e96191c142a6c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-25.0.1_810158dc6b0582cbb2aeea01d8f2d74b30484d81\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
+        <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.0.1_8915adb146ba09d139a9b34a3de7b7bd05575217\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -54,33 +99,6 @@
         revision="25.0.1"
         sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
         <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-25.0.1_a91f8a41906292fd430789187ed9fae3abc08aef\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
-        <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_186dd1347dd7cfe22ed188a4f73b9d48b986f2ea\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="4b5ee464de34fb9982a70a987c5059b94af04799">
-        <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_ba8a11e73da5f1b0d70be36c0df45e958bb870fe\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
-        <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-25.0.1_6fd640048b6c474f53051d3f07f340f1647a11f9\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -138,15 +156,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
-        <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.0.1_16b5bea889e9dc53812f0953b67e96191c142a6c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\libs\internal_impl-25.0.1.jar"
         jumboMode="true"
         optimize="true"
@@ -162,15 +171,6 @@
         revision="25.0.1"
         sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
         <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-25.0.1_f672da2e12c8b1f9223428814fbeb186aa8d5ab7\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="C:\Users\delon\Desktop\Quiz2\Quiz - Kopie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-25.0.1_810158dc6b0582cbb2aeea01d8f2d74b30484d81\classes.dex" />
     </item>
     <item
         is-multidex="true"

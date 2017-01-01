@@ -19,6 +19,7 @@ public class QuestionCreate extends SQLiteOpenHelper {
 
     // Database Name
     private static final String DATABASE_NAME = "simpleMaths";
+    private static final int DATABASE_VERSION = 1;
 
     // --------------------- Table for Questions ---------------------------------------
     // tasks table name
@@ -37,14 +38,24 @@ public class QuestionCreate extends SQLiteOpenHelper {
     private SQLiteDatabase dbase;
 
     // Constructor
-    public QuestionCreate(Context context, int DATABASE_VERSION) {
+    public QuestionCreate(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUEST);
+        if (TableExists(db, TABLE_QUEST))
+            Log.d("Arith Question Database", "table exists");
+    }
+
+    // We will call this method to get a new table with new randomly generated questions
+    public void resetQuestions() {
+        dbase = this.getWritableDatabase();
+        if (TableExists(dbase, TABLE_QUEST))
+            Log.d("resetQuestions method", "table exists");
+        // delete existing table with questions if it exists
+        dbase.execSQL("DROP TABLE IF EXISTS " + TABLE_QUEST);
         // create question table
         String CREATE_QUIZ_TABLE = "CREATE TABLE " + TABLE_QUEST + " ( "
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -54,9 +65,9 @@ public class QuestionCreate extends SQLiteOpenHelper {
                 + KEY_ANSB + " TEXT , "
                 + KEY_ANSC + " TEXT , "
                 + KEY_ANSD + " TEXT )";
-        db.execSQL(CREATE_QUIZ_TABLE);
-        addQuestions(db);
-        // db.close();
+        dbase.execSQL(CREATE_QUIZ_TABLE);
+        // dbase.close();
+        addQuestions(dbase);
     }
 
     // generating all questions and saving into dbase
@@ -101,18 +112,7 @@ public class QuestionCreate extends SQLiteOpenHelper {
         Log.d("Database", "Table removed");
         onCreate(db);
     }
-    /*
-    // Adding new question
-    public void addQuestion(Question frage) {
-        ContentValues values = new ContentValues();
-        values.put(KEY_QUESTION, frage.getQUESTION());
-        values.put(KEY_ANSWER, frage.getANSWER());
-        values.put(KEY_ANSA, frage.getANSA());
-        values.put(KEY_ANSB, frage.getANSB());
-        values.put(KEY_ANSC, frage.getANSC());
-        values.put(KEY_ANSD, frage.getANSD());
-    }
-    */
+
 
     public List<Question> getAllQuestions() {
 
@@ -138,9 +138,23 @@ public class QuestionCreate extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-        Log.d("Database", "Clean");
+        Log.d("Database", "getQuestions called");
         // return question list
         return questionList;
     }
 
+    public boolean TableExists(SQLiteDatabase db, String tableName) {
+        if (tableName == null || db == null || !db.isOpen()) {
+            return false;
+        }
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = ? AND name = ?",
+                new String[]{"table", tableName});
+        if (!cursor.moveToFirst()) {
+            cursor.close();
+            return false;
+        }
+        int count = cursor.getInt(0);
+        cursor.close();
+        return count > 0;
+    }
 }
