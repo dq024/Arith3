@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                                                 int id) {
                                 Intent k = new Intent (MainActivity.this, SingleQuiz.class);
                                 k.putExtra("PlayerName", "");
+                                k.putExtra("accessedQuestionlist", false);
                                 startActivity(k);
                             }
                         }
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                                 username = userInput.getText().toString();
                                 Log.d("Arith3", username);
                                 Intent k = new Intent (MainActivity.this, SingleQuiz.class);
+                                k.putExtra("accessedQuestionlist", false);
                                 k.putExtra("PlayerName", username);
                                 startActivity(k);
                             }

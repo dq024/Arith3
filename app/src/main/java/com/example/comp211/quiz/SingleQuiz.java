@@ -16,12 +16,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import static com.example.comp211.quiz.R.id.quizFragment;
 import static com.example.comp211.quiz.R.id.toolbar;
 
 public class SingleQuiz extends AppCompatActivity {
 
     public String PlayerName;
-
+    public boolean switchedQuestion;
+    public int Score, jumpToQuestion;
+    public int[] Questionlist;
     private boolean phoneDevice = true; // force portrait mode when device is a phone
 
     //configuring the SingleQuiz
@@ -29,7 +32,24 @@ public class SingleQuiz extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_quiz);
+
+        // pass username from the edittext field that the user entered in the AlertDialog
         PlayerName = getIntent().getStringExtra("PlayerName");
+        switchedQuestion = getIntent().getBooleanExtra("accessedQuestionlist", false);
+        Score = getIntent().getIntExtra("score", 0);
+        jumpToQuestion = getIntent().getIntExtra("jumpTo", 0);
+        if (switchedQuestion) {
+            Questionlist = getIntent().getIntArrayExtra("questionList");
+            Log.d("Arith back sq", "switched");
+            Log.d("Arith backsq ql 1", Integer.toString(Questionlist[1]));
+            Log.d("Arith backsq ql 2", Integer.toString(Questionlist[2]));
+            Log.d("Arith backsq ql 3", Integer.toString(Questionlist[3]));
+            Log.d("Arith backsq ql 4", Integer.toString(Questionlist[4]));
+            Log.d("Arith backsq ql 5", Integer.toString(Questionlist[5]));
+        }
+            //System.arraycopy(getIntent().getIntArrayExtra("questionList"),0, Questionlist,0,10);
+
+        //switchedQuestion = getIntent().getBooleanExtra("accessedQuestionlist", false);
 
         // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -57,6 +77,8 @@ public class SingleQuiz extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        // to get values from the progress the player had before switching
+
         SingleQuizFragment quizFragment = (SingleQuizFragment)
                 getSupportFragmentManager().findFragmentById(
                         R.id.quizFragment);
@@ -65,7 +87,16 @@ public class SingleQuiz extends AppCompatActivity {
             Log.d("startQuiz", "not null");
         if (quizFragment != null)
             Log.d("quizFragment", "not null");
+
         quizFragment.getPlayerName(PlayerName);
+
+        if (switchedQuestion) {
+            //pass values (questiontracker and score) to fragment and do not reset questions
+            quizFragment.receiveScore(Score);
+            quizFragment.receiveQuestionTracker(Questionlist);
+            quizFragment.jumpToQuestion(jumpToQuestion);
+        }
+        else
         quizFragment.resetQuiz();
     }
 
@@ -92,8 +123,16 @@ public class SingleQuiz extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         //int id = item.getItemId();
-
+        SingleQuizFragment quizFragment = (SingleQuizFragment)
+                getSupportFragmentManager().findFragmentById(
+                        R.id.quizFragment);
         Intent questionListIntent = new Intent(this, Questions_List_Activity.class);
+        questionListIntent.putExtra("PlayerName", PlayerName);
+        questionListIntent.putExtra("questionList", quizFragment.sendQuestionTracker());
+        questionListIntent.putExtra("score", quizFragment.sendScore());
+
+        Log.d("Arith send Qtrack", Integer.toString(quizFragment.sendQuestionTracker()[1]));
+
         startActivity(questionListIntent);
 
         //noinspection SimplifiableIfStatement
@@ -106,5 +145,31 @@ public class SingleQuiz extends AppCompatActivity {
     @Override
     public void onBackPressed() {}
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // save playername registered before, if app is interrupted, due to launching question list activity
+        SingleQuizFragment quizFragment = (SingleQuizFragment)
+                getSupportFragmentManager().findFragmentById(
+                        R.id.quizFragment);
+        savedInstanceState.putString("PlayerName", PlayerName);
+        savedInstanceState.putInt("score", quizFragment.sendScore());
+        savedInstanceState.putIntArray("questionList", quizFragment.sendQuestionTracker());
+        Log.d("Arith Save data", PlayerName);
 
+
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        // Always call the superclass so it can restore the view hierarchy
+        super.onRestoreInstanceState(savedInstanceState);
+
+
+        // Restore state members from saved instance
+        PlayerName = savedInstanceState.getString("PlayerName");
+        Score = savedInstanceState.getInt("score");
+        Questionlist = savedInstanceState.getIntArray("questionList");
+        Log.d("Arith restore data", PlayerName);
+    }
 }

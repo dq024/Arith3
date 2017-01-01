@@ -32,6 +32,10 @@ public class SingleQuizFragment extends Fragment {
     //used when we log error messages using class Log to be able to distinguish error msgs
     private static final String TAG = "Arithmetic";
 
+    //introducing a questiontracker used for switching around with questions, int[0] shall always be
+    // the count of correctanswers and from [1]-[11] the tracker whether a question has been answered.
+    // if one of those entries is empty then the question has not been answered yet.
+
     // no of questions in the quiz
     private static final int NUMBER_OF_QUESTIONS = 10;
 
@@ -39,7 +43,7 @@ public class SingleQuizFragment extends Fragment {
     QuestionCreate db;
     List<Question> quesList;
     //int score = 0;
-    int qid = 0, databaseVersion;
+    int qid = 0, databaseVersion, jumpTo;
     Question currentQ;
 
     // for score submission
@@ -47,7 +51,7 @@ public class SingleQuizFragment extends Fragment {
     String nameID;
 
     private List<String> fileNameList; // flag file names
-    //private List<String> quizCountriesList; // countries in current quiz
+
     //private Set<String> regionsSet; // world regions in current quiz
     private List<String> quizQuestionList;
     private String correctAnswer; // correct country for the current flag
@@ -65,7 +69,10 @@ public class SingleQuizFragment extends Fragment {
     private TextView mathsQuestionTextView; // displays a flag
     private LinearLayout[] guessLinearLayouts; // rows of answer Buttons
     private TextView answerTextView; // displays correct answer
-    private Button button1, button2, button3, button4;
+    private Button button1, button2, button3, button4, button5, button6;
+
+    // for question Switching function
+    private int[] questiontracker = new int[11]; // saves which questions that have been tackled
 
     public SingleQuizFragment() {
     }
@@ -96,6 +103,8 @@ public class SingleQuizFragment extends Fragment {
         button2 = (Button) view.findViewById(R.id.button2);
         button3 = (Button) view.findViewById(R.id.button3);
         button4 = (Button) view.findViewById(R.id.button4);
+        button5 = (Button) view.findViewById(R.id.button5);
+        button6 = (Button) view.findViewById(R.id.button6);
         answerTextView = (TextView) view.findViewById(R.id.answerTextView);
 
         //solveQuestionView = (ImageView) view.findViewById(R.id.solveQuestionView);
@@ -107,6 +116,8 @@ public class SingleQuizFragment extends Fragment {
         button2.setOnClickListener(guessButtonListener);
         button3.setOnClickListener(guessButtonListener);
         button4.setOnClickListener(guessButtonListener);
+        button5.setOnClickListener(guessButtonListener);
+        button6.setOnClickListener(guessButtonListener);
         /*
         // configure listeners for the guess Buttons
         for (LinearLayout row : guessLinearLayouts) {
@@ -123,6 +134,7 @@ public class SingleQuizFragment extends Fragment {
     public void resetQuiz() {
         correctAnswers = 0;
         totalGuesses = 0;
+        questiontracker = new int[11];
         //databaseVersion++;
         //totalCheat = 0;
         //totalSkipped = 0;
@@ -144,14 +156,24 @@ public class SingleQuizFragment extends Fragment {
         loadNextQuestion();
     }
 
-    // after the user guesses a correct flag, load the next flag
-    private void loadNextQuestion() {
-        // set questionNumberTextView's text
-        if (qid > 10)
-            ;
-        else {
+    public void jumpToQuestion(int i) {
 
-            questionNumberTextView.setText(getString(R.string.questions, (totalGuesses + 1), NUMBER_OF_QUESTIONS));
+        qid = i - 1;
+        db = new QuestionCreate(getActivity());
+        scoredb = new ScoreboardData(getActivity(),1);
+        quesList = db.getAllQuestions();  // this will fetch all questions
+
+        //if (questiontracker[i] == i)
+        //    loadNextQuestion();
+        //else {
+            qid = i - 1;
+            db = new QuestionCreate(getActivity());
+            scoredb = new ScoreboardData(getActivity(), 1);
+            quesList = db.getAllQuestions();  // this will fetch all questions
+            Log.d(TAG, quesList.get(0).getANSWER());
+
+
+            questionNumberTextView.setText(getString(R.string.questions, (qid + 1), NUMBER_OF_QUESTIONS));
 
             answerTextView.setText(""); // clear answerTextView
             currentQ = quesList.get(qid); // the current question
@@ -163,9 +185,54 @@ public class SingleQuizFragment extends Fragment {
             button2.setText(currentQ.getANSB());
             button3.setText(currentQ.getANSC());
             button4.setText(currentQ.getANSD());
+            button5.setText("Cheat");
+            button6.setText("Skip");
             enableButtons();
+        //}
+    }
+    // after the user guesses a correct flag, load the next flag
+    private void loadNextQuestion() {
+        // set questionNumberTextView's text
+        boolean allquestionsanswered = questiontracker[1] == 1 &&
+                questiontracker[2] == 2 &&
+                questiontracker[3] == 3 &&
+                questiontracker[4] == 4 &&
+                questiontracker[5] == 5 &&
+                questiontracker[6] == 6 &&
+                questiontracker[7] == 7 &&
+                questiontracker[8] == 8 &&
+                questiontracker[9] == 9 &&
+                questiontracker[10] == 10 ;
+        if (allquestionsanswered)
+            quizEnds();
+        else
+            if (qid == 10) {
+                qid = qid - 10;
+                loadNextQuestion();
+            }
+            else if (questiontracker[(qid+1)] == (qid + 1)) {
+                qid++;
+                loadNextQuestion();
+            }
+            else {
 
-            Log.d(TAG, currentQ.getANSWER().toString());
+                questionNumberTextView.setText(getString(R.string.questions, (qid + 1), NUMBER_OF_QUESTIONS));
+
+                answerTextView.setText(""); // clear answerTextView
+                currentQ = quesList.get(qid); // the current question
+
+                // assign values to guess buttons
+                //for (int row = 0; row < guessRows; row++) {
+                mathsQuestionTextView.setText(currentQ.getQUESTION());
+                button1.setText(currentQ.getANSA());
+                button2.setText(currentQ.getANSB());
+                button3.setText(currentQ.getANSC());
+                button4.setText(currentQ.getANSD());
+                button5.setText("Cheat");
+                button6.setText("Skip");
+                enableButtons();
+
+                Log.d(TAG, currentQ.getANSWER().toString());
 
         }
 
@@ -270,7 +337,6 @@ public class SingleQuizFragment extends Fragment {
                         // called when the animation finishes
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            loadNextQuestion();
                             Log.d(TAG, "finishes first question");
                         }
                     }
@@ -291,90 +357,133 @@ public class SingleQuizFragment extends Fragment {
             Button guessButton = ((Button) v);
             String guess = guessButton.getText().toString();
             String answer = currentQ.getANSWER();
-            ++totalGuesses; // increment number of guesses the user has made
 
-            //if use cheat button and if use skip button needs to be included here
-            if (totalGuesses == NUMBER_OF_QUESTIONS) {
-                // DialogFragment to display quiz stats and start new quiz
+            //saving which questions have been answered
+            questiontracker[qid+1]= qid+1;
 
-                AlertDialog.Builder display = new AlertDialog.Builder(getContext());
-                display.setTitle(R.string.alertDialog);
-                display.setMessage(getString(R.string.results,
-                        correctAnswers,
-                        ( (100 * correctAnswers) / (double) NUMBER_OF_QUESTIONS)));
+            // increment number of guesses the user has made
+            ++totalGuesses;
 
-                display.setNegativeButton(R.string.reset_quiz, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int id) {
-                                resetQuiz();
+            if (guess.equals(answer)) { // if the guess is correct
+                ++correctAnswers; // increment the number of correct answers
+                // display correct answer in green text
+                answerTextView.setText(getString(R.string.answerIsCorrect, currentQ.getANSWER()));
+                answerTextView.setTextColor(
+                        getResources().getColor(R.color.correct_answer,
+                                getContext().getTheme()));
+
+                disableButtons(); // disable all guess Buttons
+                // answer is correct but quiz is not over
+                // load the next question after a 2-second delay
+                /*handler.postDelayed(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                animate(true); // animate the flag off the screen
                             }
-                        }
-                    );
+                        }, 2000); // 2000 milliseconds for 2-second delay
+                */
+                qid++;
 
-                // add score submission
-                display.setPositiveButton(R.string.submitScore, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int id) {
-                                Player p = new Player(nameID, correctAnswers);
-                                scoredb.addPlayer(p);
-                                Intent intent = new Intent(getActivity(), Scoreboard.class);
-                                startActivity(intent);
-                            }
-                        }
-                );
-
-                display.setCancelable(false);
-
-                //create alert dialog that was built
-                AlertDialog scorePopup = display.create();
-                scorePopup.show();
-                Button button = scorePopup.getButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE);
-                if (nameID.equals("")) {
-                    button.setEnabled(false);
-                }
-                // use FragmentManager to display the DialogFragment
-                //quizResults.setCancelable(false);
-                //quizResults.show(getFragmentManager(), "quiz results");
-            } else {
-                if (guess.equals(answer)) { // if the guess is correct
-                    ++correctAnswers; // increment the number of correct answers
-                    // display correct answer in green text
-                    answerTextView.setText(getString(R.string.answerIsCorrect, currentQ.getANSWER()));
-                    answerTextView.setTextColor(
-                            getResources().getColor(R.color.correct_answer,
-                                    getContext().getTheme()));
-
-                    disableButtons(); // disable all guess Buttons
-                    // answer is correct but quiz is not over
-                    // load the next question after a 2-second delay
-                    handler.postDelayed(
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    animate(true); // animate the flag off the screen
-                                }
-                            }, 2000); // 2000 milliseconds for 2-second delay
-                    qid++;
-                } else {
-                    // answer was incorrect
-                    mathsQuestionTextView.startAnimation(shakeAnimation); // play shake
-
-                    // display "Incorrect!" in red
-                    answerTextView.setText(R.string.incorrect_answer);
-                    answerTextView.setTextColor(getResources().getColor(
-                            R.color.incorrect_answer, getContext().getTheme()));
-                    qid++;
-                    handler.postDelayed(
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    loadNextQuestion();
-                                }
-                            }, 2000); // 2000 milliseconds for 2-second delay loadNextQuestion();
-                }
             }
+            //if use cheat button and if use skip button needs to be included here
+            else if (guess.equals("Cheat")) {
+                // display cheat message and answer in red
+                answerTextView.setText(getString(R.string.cheat, answer));
+                answerTextView.setTextColor(getResources().getColor(
+                        R.color.incorrect_answer, getContext().getTheme()));
+                qid++;
+            }
+
+            else if (guess.equals("Skip")) {
+                // display "Why skip..." in red
+                answerTextView.setText(R.string.skip);
+                answerTextView.setTextColor(getResources().getColor(
+                        R.color.incorrect_answer, getContext().getTheme()));
+                qid++;
+            }
+            else {
+                // answer was incorrect
+                disableButtons(); // disable all guess Buttons
+                mathsQuestionTextView.startAnimation(shakeAnimation); // play shake
+
+                // display "Incorrect!" in red
+                answerTextView.setText(R.string.incorrect_answer);
+                answerTextView.setTextColor(getResources().getColor(
+                        R.color.incorrect_answer, getContext().getTheme()));
+                qid++;
+            }
+            handler.postDelayed(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            animate(true);
+                        }
+                    }, 1000); // 2000 milliseconds for 2-second delay
+
+            handler.postDelayed(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            if (totalGuesses == NUMBER_OF_QUESTIONS)    // check if quiz ends ie all questions have been answered
+                                quizEnds();
+                            else
+                                loadNextQuestion();
+                        }
+                    }, 1500); // 2000 milliseconds for 2-second delay
+
         }
     };
+
+    public void quizEnds() {
+
+        AlertDialog.Builder display = new AlertDialog.Builder(getContext());
+        display.setTitle(R.string.alertDialog);
+        display.setMessage(getString(R.string.results,
+                correctAnswers,
+                ((100 * correctAnswers) / (double) NUMBER_OF_QUESTIONS)));
+
+        display.setNegativeButton(R.string.reset_quiz, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int id) {
+                        resetQuiz();
+                    }
+                }
+        );
+
+        display.setNeutralButton("Back to Menu", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,
+                                int id) {
+                Intent f = new Intent(getActivity(), MainActivity.class);
+                startActivity(f);
+            }
+        });
+
+        // add score submission
+        display.setPositiveButton(R.string.submitScore, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int id) {
+                        Player p = new Player(nameID, correctAnswers);
+                        scoredb.addPlayer(p);
+                        Intent intent = new Intent(getActivity(), Scoreboard.class);
+                        startActivity(intent);
+                    }
+                }
+        );
+
+        display.setCancelable(false);
+
+        //create alert dialog that was built
+        AlertDialog scorePopup = display.create();
+        scorePopup.show();
+        Button button = scorePopup.getButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE);
+        if (nameID.equals("")) {
+            button.setEnabled(false);
+        }
+        // use FragmentManager to display the DialogFragment
+        //quizResults.setCancelable(false);
+        //quizResults.show(getFragmentManager(), "quiz results");
+    }
 
 
     // utility method that disables all answer Buttons
@@ -391,6 +500,8 @@ public class SingleQuizFragment extends Fragment {
         button2.setEnabled(false);
         button3.setEnabled(false);
         button4.setEnabled(false);
+        button5.setEnabled(false);
+        button6.setEnabled(false);
     }
 
     // utility method that disables all answer Buttons
@@ -399,12 +510,30 @@ public class SingleQuizFragment extends Fragment {
         button2.setEnabled(true);
         button3.setEnabled(true);
         button4.setEnabled(true);
+        button5.setEnabled(true);
+        button6.setEnabled(true);
     }
 
 
     public void getPlayerName(String username) {
         nameID = username;
         Log.d("getPlayerName", nameID);
+    }
+
+    public int[] sendQuestionTracker() {
+        return questiontracker;
+    }
+
+    public int sendScore() {
+        return correctAnswers;
+    }
+
+    public void receiveScore(int score) {
+        correctAnswers = score;
+    }
+
+    public void receiveQuestionTracker(int[] tracker) {
+        questiontracker = tracker;
     }
 
 /*

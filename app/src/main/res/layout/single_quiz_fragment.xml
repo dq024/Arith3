@@ -103,6 +103,33 @@
             android:textColor="@color/button_text_color"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/row3LinearLayout">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="New Button"
+            android:id="@+id/button5"
+            android:layout_weight="1"
+            android:lines="2"
+            style="@android:style/Widget.Material.Button.Colored"
+            android:textColor="@color/button_text_color"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="New Button"
+            android:id="@+id/button6"
+            android:layout_weight="1"
+            android:lines="2"
+            style="@android:style/Widget.Material.Button.Colored"
+            android:textColor="@color/button_text_color"/>
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
