@@ -32,19 +32,15 @@ public class SingleQuizFragment extends Fragment {
     //used when we log error messages using class Log to be able to distinguish error msgs
     private static final String TAG = "Arithmetic";
 
-    //introducing a questiontracker used for switching around with questions, int[0] shall always be
-    // the count of correctanswers and from [1]-[11] the tracker whether a question has been answered.
-    // if one of those entries is empty then the question has not been answered yet.
-
     // no of questions in the quiz
     private static final int NUMBER_OF_QUESTIONS = 10;
 
     // for the question database
-    QuestionCreate db;
-    List<Question> quesList;
+    private QuestionCreate db;
+    private List<Question> quesList;
     //int score = 0;
     int qid = 0, databaseVersion, jumpTo;
-    Question currentQ;
+    private Question currentQ;
 
     // for score submission
     ScoreboardData scoredb;
@@ -54,24 +50,26 @@ public class SingleQuizFragment extends Fragment {
 
     //private Set<String> regionsSet; // world regions in current quiz
     private List<String> quizQuestionList;
-    private String correctAnswer; // correct country for the current flag
+    private String correctAnswer; // correct answer
     private int totalGuesses; // number of guesses made
     private int correctAnswers; // number of correct guesses
     private int totalSkipped; // number of skipped questions
     private int totalCheat; // number of times cheating and showing the answer
     //private int guessRows; // number of rows displaying guess Buttons
     private SecureRandom random; // used to randomize the quiz
-    private Handler handler; // used to delay loading next flag
+    private Handler handler; // used to delay loading next question
     private Animation shakeAnimation; // animation for incorrect guess
 
     private LinearLayout quizLinearLayout; // layout that contains the quiz
     private TextView questionNumberTextView; // shows current question #
-    private TextView mathsQuestionTextView; // displays a flag
+    private TextView mathsQuestionTextView; // displays a maths question
     private LinearLayout[] guessLinearLayouts; // rows of answer Buttons
     private TextView answerTextView; // displays correct answer
     private Button button1, button2, button3, button4, button5, button6;
 
-    // for question Switching function
+    //introducing a questiontracker used for switching around with questions, int[0] shall always be
+    // empty and from [1]-[11] the tracker whether a question has been answered.
+    // if one of those entries is empty then the question has not been answered yet.
     private int[] questiontracker = new int[11]; // saves which questions that have been tackled
 
     public SingleQuizFragment() {
@@ -311,9 +309,6 @@ public class SingleQuizFragment extends Fragment {
 
     // animates the entire quizLinearLayout on or off screen
     private void animate(boolean animateOut) {
-        // prevent animation into the the UI for the first flag
-        if (correctAnswers == 0)
-            return;
 
         // calculate center x and center y
         int centerX = (quizLinearLayout.getLeft() +
@@ -451,7 +446,7 @@ public class SingleQuizFragment extends Fragment {
                 }
         );
 
-        display.setNeutralButton("Back to Menu", new DialogInterface.OnClickListener() {
+        display.setNeutralButton(R.string.backToMenu, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,
                                 int id) {
                 Intent f = new Intent(getActivity(), MainActivity.class);

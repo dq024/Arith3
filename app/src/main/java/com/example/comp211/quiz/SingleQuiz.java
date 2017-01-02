@@ -55,6 +55,7 @@ public class SingleQuiz extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*
         // Portrait Orientation setting
         // determine screen size
         int screenSize = getResources().getConfiguration().screenLayout &
@@ -68,7 +69,7 @@ public class SingleQuiz extends AppCompatActivity {
         // if running on phone-sized device, allow only portrait orientation
         if (phoneDevice)
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
+        */
 
     }
 

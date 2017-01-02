@@ -7,7 +7,7 @@
     <string name="cheat">Cheater! %1$s!</string>
     <string name="questions">Question %1$d of %2$d</string>
     <string name="answerIsCorrect">%1$s!</string>
-    <string name="reset_quiz">Reset Quiz</string>
+    <string name="reset_quiz">Replay</string>
     <string name="alertDialog">Your Score</string>
     <string name="answer_question">Solve the simple question</string>
     <string name="title_activity_questions__list_">Questions_List</string>
@@ -24,4 +24,12 @@
     <string name="noName">Do not Register</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_test">Test</string>
+    <string name="title_activity_multiplayer">Multiplayer</string>
+
+    <string name="submitNames">Register Your Names</string>
+    <string name="mpStart">Start Game</string>
+    <string name="mpQuestions">%1$s\'s turn: Question %2$d of %3$d</string>
+    <string name="mpAlertDialog">%1$s WON!!!</string>
+    <string name="mpTieAlertDialog">You TIED!!!</string>
+    <string name="mpResults">%1$s: %2$d correct out of 10/n%3$s: %4$d correct out of 10</string>
 </resources>
